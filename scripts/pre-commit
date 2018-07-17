@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+prisha1=$(sha1sum $DIR/../../scripts/.pri.sh | awk '{ print $1 }')
+if [ "$prisha1" != "4040354d6635896ca443c36511a229be3b582471" ]; then
+	echo ".pri.sh file verification failed. expect sha1sum to be "4040354d6635896ca443c36511a229be3b582471" but got "$prisha1". abort commit."
+	exit 1
+fi
+
+jenkins_admin_password=$(cat $DIR/../../vars/jenkins.yml | grep 'jenkins_admin_password')
+if [ "$jenkins_admin_password" != "jenkins_admin_password: <admin_password>" ]; then
+	echo "you should not check in the password"
+	exit 1
+fi

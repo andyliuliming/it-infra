@@ -1,0 +1,4 @@
+---
+nginx_config_root: /etc/nginx
+__nginx_user: www-data
+jenkins_domain: '_'

@@ -1,0 +1,19 @@
+---
+- name: Issue domain cert
+  shell: |
+    /root/.acme.sh/acme.sh --issue -d {{ acme_domain }} --dns dns_ali \
+        --home {{ acme_home }} # try --force if failed
+  args:
+    chdir: "{{ acme_home }}/"
+    executable: /bin/bash
+  environment:
+    Ali_Key: "{{ acme_key }}"
+    Ali_Secret: "{{ acme_secret }}"
+
+- name: Restore permission
+  file:
+    path: "{{ acme_home }}/{{ acme_domain }}"
+    owner: "{{ acme_user }}"
+    group: "{{ acme_user_group }}"
+    state: directory
+    recurse: true

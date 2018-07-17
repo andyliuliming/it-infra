@@ -1,0 +1,8 @@
+---
+acme_user: "{{ ansible_user }}"
+acme_user_group: "{{ ansible_user }}"
+
+acme_home: /var/www/acme
+acme_site_cert: /var/www/acme/site
+acme_account_email: andyliuliming@outlook.com
+acme_port: 1433

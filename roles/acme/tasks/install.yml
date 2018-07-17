@@ -1,0 +1,18 @@
+---
+- name: Prepare directories (install cert)
+  file:
+    path: "{{ acme_site_cert }}/{{ acme_domain }}/nginx"
+    owner: "{{ acme_user }}"
+    group: "{{ acme_user_group }}"
+    state: directory
+
+- name: Install cert
+  shell: |
+    /root/.acme.sh/acme.sh --install-cert -d {{ acme_domain }} \
+      --home {{ acme_home }} \
+      --key-file {{ acme_site_cert }}/{{ acme_domain }}/nginx/key.pem \
+      --fullchain-file {{ acme_site_cert }}/{{ acme_domain }}/nginx/cert.pem \
+      --reloadcmd  "service nginx force-reload"
+  args:
+    chdir: "{{ acme_home }}/"
+    executable: /bin/bash

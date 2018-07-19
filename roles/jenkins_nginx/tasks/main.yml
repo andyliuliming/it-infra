@@ -1,0 +1,12 @@
+---
+- name: Upload real https nginx config
+  template:
+    src: jenkins-nginx.j2
+    dest: "{{ nginx_config_root }}/conf.d/jenkins-https.conf"
+    owner: "{{ __nginx_user }}"
+    mode: 0644
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

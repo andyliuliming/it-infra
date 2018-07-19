@@ -1,0 +1,11 @@
+---
+- name: Setup directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0775
+    state: directory
+  with_items:
+    - "{{ jenkins_server_project_root }}"
+  become: true

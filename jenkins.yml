@@ -1,0 +1,30 @@
+---
+- hosts: jenkins_servers
+
+  vars_files:
+    - vars/jenkins.yml
+
+  roles:
+    - role: 'geerlingguy.nginx'
+      become: true
+      become_user: root
+      tags: ['setup', 'nginx']
+    - role: 'geerlingguy.docker'
+      become: true
+      become_user: root
+      tags: ['setup']
+    - role: 'geerlingguy.jenkins'
+      become: true
+      become_user: root
+      tags: ['setup']
+    - role: 'roles/acme'
+      become: true
+      become_user: root
+    - role: 'roles/jenkins'
+      become: true
+      become_user: root
+      tags: ['setup', 'setup:jenkinsproj']
+    - role: 'jenkins_nginx'
+      become: true
+      become_user: root
+      tags: ['setup', 'nginx']

@@ -1,0 +1,25 @@
+---
+- name: Prepare directories (setup)
+  file:
+    path: "{{ item }}"
+    owner: "{{ acme_user }}"
+    group: "{{ acme_user_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ acme_home }}"
+    - "{{ acme_site_cert }}"
+    - "{{ acme_home }}/tmp"
+
+- name: Download acme.sh
+  get_url:
+    url: https://get.acme.sh
+    dest: "{{ acme_home }}/tmp/get.acme.sh"
+    mode: 0744
+
+- name: Install acme.sh
+  shell: |
+    ./get.acme.sh
+  args:
+    chdir: "{{ acme_home }}/tmp/"
+    executable: /bin/bash

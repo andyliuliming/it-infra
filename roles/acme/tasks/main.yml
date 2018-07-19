@@ -1,0 +1,9 @@
+---
+- import_tasks: setup.yml
+  tags: ['setup', 'setup:acme']
+
+- import_tasks: issue.yml
+  tags: ['issue:acme']
+
+- import_tasks: install.yml
+  tags: ['install:acme']

@@ -6,14 +6,16 @@ jenkins_admin_password: <admin_password>
 
 jenkins_http_port: 8080
 
-jenkins_plugins: ['blueocean','embeddable-build-status']
+jenkins_plugins: [] # ['blueocean','embeddable-build-status']
 jenkins_plugins_install_dependencies: yes
 jenkins_plugins_state: present
 jenkins_plugin_updates_expiration: 86400
 
 ansible_user: '<BE REPLACED>'
 jenkins_domain: '<BE REPLACED>'
-
+jenkins_master_domain: '<BE REPLACED>'
+jenkins_slave_0_domain: '<BE REPLACED>'
+jenkins_authorized_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnl52wfxl8gR+oG6Fo/Hyz+MDarQ6lwcUc3xMbgYBfo/ngWcS4Y/fD+eZFujQMD/iVFuX5PQuCo4C5JpWIDYwOMFNeDerjMPiilr5LF+l3Yoo6+PMWZmAs+mNBv4Onre6AEgFWb7S8OEIAmDNZ0AeUgd9PTz72Cp+m5GjGN1bVBH5P3gGVEHbFft9BfevbP9p5/YsQkARbIxUxkTCdY7shGE0eykEzjNNJ+wDhOMNtdEfnwO8/Llt/dwKAWHExB3px4NruNEwOmME1aXqMfNkv080eCsgPlzmzQtDrl0f3PTQrHOSjV34J+DRg1Dt/i0xWSdc2aoMPifNL/h+kEtID jenkins@jenkins-master' # would be added into authorized_keys in jenkins slave node.
 # jenkins ends
 
 # docker starts
@@ -27,12 +29,11 @@ docker_users:
 # nginx starts
 # nginx_conf_template:
 nginx_remove_default_vhost: true
-jenkins_domain: azurecpi.gugagaga.fun
 nginx_extra_conf_options: |
   worker_rlimit_nofile 65535;
 nginx_worker_connections: 2048
-jenkins_server_project_root: '/var/jenkins_proj'
-jenkins_server_real_nginx_https_cert: '/var/www/acme/site/azurecpi.gugagaga.fun/nginx/cert.pem'
-jenkins_server_real_nginx_https_key: '/var/www/acme/site/azurecpi.gugagaga.fun/nginx/key.pem'
+jenkins_server_project_root: '/mnt/jenkins/jenkins_proj'
+jenkins_server_real_nginx_https_cert: '/var/www/acme/site/<BE REPLACED>/nginx/cert.pem'
+jenkins_server_real_nginx_https_key: '/var/www/acme/site/<BE REPLACED>/nginx/key.pem'
 jenkins_server_real_nginx_log_root: '{{ jenkins_server_project_root }}/real_https_log'
 # nginx ends

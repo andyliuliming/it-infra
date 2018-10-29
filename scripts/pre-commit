@@ -3,8 +3,8 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 prisha1=$(sha1sum $DIR/../../scripts/.pri.sh | awk '{ print $1 }')
-if [ "$prisha1" != "4040354d6635896ca443c36511a229be3b582471" ]; then
-	echo ".pri.sh file verification failed. expect sha1sum to be "4040354d6635896ca443c36511a229be3b582471" but got "$prisha1". abort commit."
+if [ "$prisha1" != "cdbe8431bffa5a67f584de131874f6867eec854d" ]; then
+	echo ".pri.sh file verification failed. expect sha1sum to be "cdbe8431bffa5a67f584de131874f6867eec854d" but got "$prisha1". abort commit."
 	exit 1
 fi
 

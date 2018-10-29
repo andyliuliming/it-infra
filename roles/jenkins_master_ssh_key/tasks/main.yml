@@ -1,0 +1,5 @@
+---
+- name: ensure jenkins user's SSH key is generated
+  command: ssh-keygen -t rsa -f /home/{{ jenkins_admin_username }}/.ssh/id_rsa -N ''
+  args:
+    creates: /home/{{ jenkins_admin_username }}/.ssh/id_rsa

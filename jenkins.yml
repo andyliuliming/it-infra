@@ -1,30 +1,70 @@
 ---
-- hosts: jenkins_servers
+- hosts: jenkins_master_servers
 
   vars_files:
     - vars/jenkins.yml
 
   roles:
+    - role: 'roles/filesystem'
+      become: true
+      become_user: root
+      tags: ['setup', 'setup:datadisk']
+    - role: 'roles/jenkins_master_ssh_key'
+      tags: ['setup', 'setup:jenkinsmastersshkey']
     - role: 'geerlingguy.nginx'
       become: true
       become_user: root
-      tags: ['setup', 'nginx']
+      tags: ['setup', 'setup:nginx']
     - role: 'geerlingguy.docker'
       become: true
       become_user: root
-      tags: ['setup']
+      tags: ['setup', 'setup:docker']
     - role: 'geerlingguy.jenkins'
       become: true
       become_user: root
-      tags: ['setup']
+      tags: ['setup', 'setup:jenkins']
     - role: 'roles/acme'
       become: true
       become_user: root
+      tags: ['setup', 'setup:acme']
     - role: 'roles/jenkins'
       become: true
       become_user: root
-      tags: ['setup', 'setup:jenkinsproj']
-    - role: 'jenkins_nginx'
+      tags: ['setup', 'setup:jenkins']
+    - role: 'roles/jenkins_nginx'
       become: true
       become_user: root
-      tags: ['setup', 'nginx']
+      tags: ['setup', 'setup:nginx']
+
+- hosts: jenkins_slave_servers
+  vars_files:
+    - vars/jenkins.yml
+  roles:
+    - role: 'roles/filesystem'
+      become: true
+      become_user: root
+      tags: ['setup', 'setup:datadisk']
+    - role: 'geerlingguy.docker'
+      become: true
+      become_user: root
+      tags: ['setup', 'setup:docker']
+    # - role: 'geerlingguy.jenkins'
+    #   become: true
+    #   become_user: root
+    #   tags: ['setup', 'setup:jenkins']
+    - role: 'roles/jenkins_slave'
+      become: true
+      become_user: root
+      tags: ['setup', 'setup:slave']
+    # - role: 'roles/jenkins'
+    #   become: true
+    #   become_user: root
+    #   tags: ['setup', 'setup:jenkins']
+    # - role: 'novafloss.jenkins-api'
+    #   tags: ['setup', 'setup:slave']
+    #   become: true
+    #   become_user: root
+    # - role: 'novafloss.jenkins-node'
+    #   tags: ['setup', 'setup:slave']
+    #   become: true
+    #   become_user: root

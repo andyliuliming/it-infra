@@ -4,7 +4,6 @@ variable "prefix" {
 
 variable "location" {
   type    = "string"
-  default = "westus"
 }
 
 variable "network_cidr" {
